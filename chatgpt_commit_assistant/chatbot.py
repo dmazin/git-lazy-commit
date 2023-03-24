@@ -7,9 +7,10 @@ import openai
 
 
 class ChatBot:
-    def __init__(self, system=""):
+    def __init__(self, model, system=""):
         self.system = system
         self.messages = []
+        self.model: str = model
         if self.system:
             self.messages.append({"role": "system", "content": system})
 
@@ -21,7 +22,7 @@ class ChatBot:
 
     def execute(self):
         completion = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo", messages=self.messages
+            model=self.model, messages=self.messages
         )
         # Uncomment this to print out token usage each time, e.g.
         # {"completion_tokens": 86, "prompt_tokens": 26, "total_tokens": 112}
