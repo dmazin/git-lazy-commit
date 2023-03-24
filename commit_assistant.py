@@ -29,20 +29,23 @@ class GitCommitAssistant:
         else:
             print("Invalid input. Please enter 'yes' or 'no'.")
             return self.get_user_approval(commit_msg)
-
 def main():
     assistant = GitCommitAssistant()
     repo = git.Repo(os.getcwd())
     uncommitted_changes = assistant.get_uncommitted_changes(repo)
     changes_summary = "\n".join(uncommitted_changes)
-    generated_commit_message = assistant.generate_commit_message(changes_summary)
-    
-    if assistant.get_user_approval(generated_commit_message):
-        # Commit the changes if the user approves the commit message
-        assistant.commit_changes(repo, generated_commit_message)
-        print("Changes committed.")
-    else:
-        print("Commit cancelled.")
+
+    while True:
+        generated_commit_message = assistant.generate_commit_message(changes_summary)
+        if assistant.get_user_approval(generated_commit_message):
+            # Commit the changes if the user approves the commit message
+            assistant.commit_changes(repo, generated_commit_message)
+            print("Changes committed.")
+            break
+        else:
+            print("Generating new commit message...")
+
+    print("Exiting Git commit assistant.")
 
 if __name__ == "__main__":
     main()
