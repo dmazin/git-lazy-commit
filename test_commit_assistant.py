@@ -24,5 +24,12 @@ class TestGitCommitAssistant(unittest.TestCase):
             chatgpt_mock.assert_called_once()
             self.assertEqual(commit_message, "Update example feature")
 
+    def test_commit_changes(self):
+        repo_mock = MagicMock()
+        commit_message = "Update example feature"
+        self.assistant.commit_changes(repo_mock, commit_message)
+        repo_mock.git.add.assert_called_once_with(update=True)
+        repo_mock.index.commit.assert_called_once_with(commit_message)
+
 if __name__ == "__main__":
     unittest.main()
