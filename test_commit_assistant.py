@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from commit_assistant import GitCommitAssistant
+from chatgpt_commit_assistant.commit_assistant import GitCommitAssistant
 
 
 class TestGitCommitAssistant(unittest.TestCase):

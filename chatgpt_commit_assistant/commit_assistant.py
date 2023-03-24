@@ -1,6 +1,6 @@
 import os
 import git
-from chatbot import ChatBot
+from chatgpt_commit_assistant.chatbot import ChatBot
 
 
 class GitCommitAssistant:
