@@ -5,7 +5,7 @@ from chatbot import ChatBot
 
 
 class GitCommitAssistant:
-    def __init__(self, model):
+    def __init__(self, model="gpt-3.5-turbo"):
         self.chatgpt = ChatBot(system="You are an assistant whose job is to generate commit messages given a list of git changes. In your responses, please just send back the commit message without any additional text. In your commit messages, try to be descriptive, i.e. don't just say 'refactored code.'", model=model)
 
     def get_uncommitted_changes(self, repo):
