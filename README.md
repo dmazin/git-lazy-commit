@@ -23,6 +23,8 @@ Do you approve this commit message? (yes/no):
 
 You can then respond with "yes" or "no". If you respond with "no", the script will generate a new commit message and ask for approval again. If you want to exit the script, you can press Ctrl+C.
 
+For examples of generated commit messages, see the commit messages for this repo.
+
 ## Limitations
 
 Right now, this script only works for modifications to pre-existing files. It does not work for untracked files.
