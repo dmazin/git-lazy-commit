@@ -1,5 +1,8 @@
 # This code is Apache 2 licensed:
 # https://www.apache.org/licenses/LICENSE-2.0
+
+# This entire module was created by Simon Willison. The blog post where he
+# published the code is here: https://til.simonwillison.net/gpt3/chatgpt-api
 import openai
 
 
