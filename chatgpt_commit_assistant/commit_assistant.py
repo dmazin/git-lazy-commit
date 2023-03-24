@@ -33,8 +33,12 @@ class GitCommitAssistant:
             return self.get_user_approval(commit_msg)
 
 
-def main(model):
-    assistant = GitCommitAssistant(model)
+def main(args=None):
+    if args is None:
+        args = parse_arguments()
+
+    assistant = GitCommitAssistant(args.model)
+
     repo = git.Repo(os.getcwd())
     uncommitted_changes = assistant.get_uncommitted_changes(repo)
     changes_summary = "\n".join(uncommitted_changes)
@@ -47,10 +51,8 @@ def main(model):
     else:
         print("Commit cancelled.")
 
-
-if __name__ == "__main__":
+def parse_arguments():
     parser = argparse.ArgumentParser(description="Generate commit messages for git repositories")
     parser.add_argument("-m", "--model", default="gpt-3.5-turbo", help="OpenAI API model to use")
     args = parser.parse_args()
-
-    main(args.model)
+    return args
