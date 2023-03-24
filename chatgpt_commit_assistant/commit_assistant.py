@@ -1,7 +1,7 @@
 import os
 import git
 import argparse
-from chatbot import ChatBot
+from .chatbot import ChatBot
 
 
 class GitCommitAssistant:
