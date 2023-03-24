@@ -10,9 +10,7 @@ class TestGitCommitAssistant(unittest.TestCase):
 
     def test_get_uncommitted_changes(self):
         repo_mock = MagicMock()
-        diff_mock = MagicMock()
-        diff_mock.diff = "example change"
-        repo_mock.index.diff.return_value = [diff_mock]
+        repo_mock.git.diff.return_value = "example change"
 
         changes = self.assistant.get_uncommitted_changes(repo_mock)
         self.assertEqual(changes, ["example change"])
