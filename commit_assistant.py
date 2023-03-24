@@ -4,12 +4,10 @@ from chatbot import ChatBot
 
 class GitCommitAssistant:
     def __init__(self):
-        self.chatgpt = ChatBot("You are an assistant whose job is to generate commit messages given a list of git changes.")
+        self.chatgpt = ChatBot("You are an assistant whose job is to generate commit messages given a list of git changes. In your responses, please just send back the commit message without any additional text.")
 
     def get_uncommitted_changes(self, repo):
-        uncommitted_changes = []
-        for item in repo.index.diff(None):
-            uncommitted_changes.append(item.diff)
+        uncommitted_changes = repo.git.diff().split("\n")
         return uncommitted_changes
 
     def generate_commit_message(self, changes_summary):
