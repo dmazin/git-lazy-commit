@@ -17,7 +17,9 @@ class TestGitCommitAssistant(unittest.TestCase):
 
     def test_generate_commit_message(self):
         changes_summary = "example change"
-        with patch.object(self.assistant.chatgpt, "execute", return_value="Update example feature") as chatgpt_mock:
+        with patch.object(
+            self.assistant.chatgpt, "execute", return_value="Update example feature"
+        ) as chatgpt_mock:
             commit_message = self.assistant.generate_commit_message(changes_summary)
             chatgpt_mock.assert_called_once()
             self.assertEqual(commit_message, "Update example feature")
@@ -28,6 +30,7 @@ class TestGitCommitAssistant(unittest.TestCase):
         self.assistant.commit_changes(repo_mock, commit_message)
         repo_mock.git.add.assert_called_once_with(update=True)
         repo_mock.index.commit.assert_called_once_with(commit_message)
+
 
 if __name__ == "__main__":
     unittest.main()
