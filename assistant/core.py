@@ -44,12 +44,11 @@ def main(args=None):
     changes_summary = "\n".join(uncommitted_changes)
     generated_commit_message = assistant.generate_commit_message(changes_summary)
 
-    if assistant.get_user_approval(generated_commit_message):
-        # Commit the changes if the user approves the commit message
-        assistant.commit_changes(repo, generated_commit_message)
-        print("Changes committed.")
-    else:
-        print("Commit cancelled.")
+    while not assistant.get_user_approval(generated_commit_message):
+        generated_commit_message = assistant.generate_commit_message(changes_summary)
+
+    assistant.commit_changes(repo, generated_commit_message)
+    return "Changes committed."
 
 
 def parse_arguments():
