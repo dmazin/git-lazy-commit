@@ -14,7 +14,7 @@ class Assistant:
 
     def get_uncommitted_changes(self):
         staged_changes = subprocess.run(["git", "diff", "--staged"], capture_output=True, text=True)
-        uncommitted_changes = staged_changes.stdout.split('\n')
+        uncommitted_changes = staged_changes.stdout.strip().split('\n')
         return uncommitted_changes
 
     def generate_commit_message(self, changes_summary):
