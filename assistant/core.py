@@ -1,6 +1,7 @@
 import os
-import git
 import argparse
+import subprocess
+import git
 from .chatbot import ChatBot
 
 
@@ -11,8 +12,9 @@ class Assistant:
             model=model,
         )
 
-    def get_uncommitted_changes(self, repo):
-        uncommitted_changes = repo.git.diff().split("\n")
+    def get_uncommitted_changes(self):
+        staged_changes = subprocess.run(["git", "diff", "--staged"], capture_output=True, text=True)
+        uncommitted_changes = staged_changes.stdout.split('\n')
         return uncommitted_changes
 
     def generate_commit_message(self, changes_summary):
@@ -47,7 +49,7 @@ def main(args=None):
     assistant = Assistant(args.model)
 
     repo = git.Repo(os.getcwd())
-    uncommitted_changes = assistant.get_uncommitted_changes(repo)
+    uncommitted_changes = assistant.get_uncommitted_changes()
     changes_summary = "\n".join(uncommitted_changes)
     generated_commit_message = assistant.generate_commit_message(changes_summary)
 
