@@ -32,17 +32,18 @@ class TestGitCommitAssistant(unittest.TestCase):
 
     def test_get_user_approval(self):
         commit_msg = "Update example feature"
-        with patch('builtins.input', return_value="yes"):
+        with patch("builtins.input", return_value="yes"):
             approval = self.assistant.get_user_approval(commit_msg)
             self.assertTrue(approval)
 
-        with patch('builtins.input', return_value="no"):
+        with patch("builtins.input", return_value="no"):
             approval = self.assistant.get_user_approval(commit_msg)
             self.assertFalse(approval)
 
-        with patch('builtins.input', side_effect=["invalid", "yes"]):
+        with patch("builtins.input", side_effect=["invalid", "yes"]):
             approval = self.assistant.get_user_approval(commit_msg)
             self.assertTrue(approval)
+
 
 if __name__ == "__main__":
     unittest.main()
