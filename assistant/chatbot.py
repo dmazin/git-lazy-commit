@@ -7,10 +7,11 @@ import openai
 
 
 class ChatBot:
-    def __init__(self, model, system=""):
+    def __init__(self, model, system="", is_verbose=False):
         self.system = system
         self.messages = []
         self.model: str = model
+        self.is_verbose: bool = is_verbose
         if self.system:
             self.messages.append({"role": "system", "content": system})
 
@@ -24,7 +25,7 @@ class ChatBot:
         completion = openai.ChatCompletion.create(
             model=self.model, messages=self.messages
         )
-        # Uncomment this to print out token usage each time, e.g.
-        # {"completion_tokens": 86, "prompt_tokens": 26, "total_tokens": 112}
-        # print(completion.usage)
+        if self.is_verbose:
+            # eg: {"completion_tokens": 86, "prompt_tokens": 26, "total_tokens": 112}
+            print(completion.usage)
         return completion.choices[0].message.content

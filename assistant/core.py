@@ -6,10 +6,11 @@ from .chatbot import ChatBot
 
 
 class Assistant:
-    def __init__(self, model="gpt-3.5-turbo"):
+    def __init__(self, model="gpt-3.5-turbo", is_verbose=False):
         self.chatgpt = ChatBot(
             system="You are an assistant whose job is to generate commit messages given a list of git changes. In your responses, please just send back the commit message without any additional text. In your commit messages, try to be descriptive, i.e. don't just say 'refactored code.'",
             model=model,
+            is_verbose=is_verbose,
         )
 
     def get_uncommitted_changes(self):
@@ -48,7 +49,7 @@ def main(args=None):
     if args is None:
         args = parse_arguments()
 
-    assistant = Assistant(args.model)
+    assistant = Assistant(args.model, args.verbose)
 
     repo = git.Repo(os.getcwd())
     uncommitted_changes = assistant.get_uncommitted_changes()
@@ -73,6 +74,9 @@ def parse_arguments():
     )
     parser.add_argument(
         "-m", "--model", default="gpt-3.5-turbo", help="OpenAI API model to use"
+    )
+    parser.add_argument(
+        "--verbose", action='store_true', help="Print extra information"
     )
     args = parser.parse_args()
     return args
