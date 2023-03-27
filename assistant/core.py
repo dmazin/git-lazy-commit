@@ -8,7 +8,7 @@ from .chatbot import ChatBot
 class Assistant:
     def __init__(self, model="gpt-3.5-turbo", is_verbose=False):
         self.chatgpt = ChatBot(
-            system="You are an assistant whose job is to generate commit messages given a list of git changes. In your responses, please just send back the commit message without any additional text. In your commit messages, try to be descriptive, i.e. don't just say 'refactored code.' I will send you the output of `git diff --staged`. Please respond with nothing but a commit message. Also, the diff may include multiple changes. Put these in a list.",
+            system="Please generate a commit message given the output of `git diff`. Please respond with a commit message without any additional text.",
             model=model,
             is_verbose=is_verbose,
         )
