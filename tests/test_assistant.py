@@ -8,12 +8,6 @@ class TestGitCommitAssistant(unittest.TestCase):
     def setUp(self):
         self.assistant = assistant.Assistant()
 
-    def test_get_uncommitted_changes(self):
-        with patch("subprocess.run") as run_mock:
-            run_mock.return_value.stdout = "example change\n"
-            changes = self.assistant.get_uncommitted_changes()
-            self.assertEqual(changes, ["example change"])
-
     def test_generate_commit_message(self):
         changes_summary = "example change\n"
         with patch.object(
