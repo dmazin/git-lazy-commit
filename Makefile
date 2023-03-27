@@ -1,6 +1,7 @@
 # Build package
 .PHONY: build
 build:
+	rm dist/*
 	python setup.py sdist bdist_wheel
 
 # Upload package to PyPI
