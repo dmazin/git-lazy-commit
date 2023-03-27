@@ -1,4 +1,4 @@
-# git-lazy-commit 
+# git-lazy-commit
 
 git-lazy-commit generates commit messages for staged changes in a git repository using OpenAI's OpenGPT.
 
@@ -18,6 +18,7 @@ After staging some changes, call `git-lazy-commit`. It will generate a commit me
 It will look for `OPENAI_API_KEY` in your environment variables. You can create keys at https://platform.openai.com/account/api-keys.
 
 For example:
+
 ```
 $ cd my-git-repo
 $ git-lazy-commit
@@ -32,7 +33,8 @@ You can pass the model you want to use using `-m/--model`, e.g. `-m gpt-4`. The 
 You can also pass `--verbose` to see some extra info. For now it prints the token usage.
 
 ## Examples
-In these examples, I'm also providing what I'd have written if I wasn't lazy. This has actually made me notice that I am describing why I'm doing something rather than just *what* I'm doing. This is a limitation of git-lazy-commit: it's pretty good at describing the what, but not the why. I'd advise you to use it as a starting point!
+
+In these examples, I'm also providing what I'd have written if I wasn't lazy. This has actually made me notice that I am describing why I'm doing something rather than just _what_ I'm doing. This is a limitation of git-lazy-commit: it's pretty good at describing the what, but not the why. I'd advise you to use it as a starting point!
 
 ```diff
 diff --git a/assistant/core.py b/assistant/core.py
@@ -69,6 +71,7 @@ index bea132e..7524ed4 100755
      changes_summary = "\n".join(uncommitted_changes)
      generated_commit_message = assistant.generate_commit_message(changes_summary)
 ```
+
 what I'd have written if I wasn't lazy: Use subprocess to call `git diff --staged` instead of trying to get gitpython to print what I want
 gpt-3.5-turbo output: Refactored uncommitted changes retrieval to use subprocess instead of git module
 gpt-4 output: Replaced gitpython with subprocess for getting staged changes and updated Assistant class methods accordingly
@@ -88,10 +91,11 @@ index 7524ed4..d5a7a28 100755
 
      def generate_commit_message(self, changes_summary):
 ```
+
 what I'd have written if I wasn't lazy: Strip trailing whitespace because it breaks a test otherwise
 gpt-3.5-turbo output: Fix parsing of staged changes output to remove empty line.
 gpt-4 output: Improved parsing of uncommitted changes output
 
-
 ## License
+
 Apache 2.0
