@@ -19,12 +19,12 @@ class Assistant:
         )
         uncommitted_changes = staged_changes.stdout.strip().split("\n")
         return uncommitted_changes
-
+    # foo
     def generate_commit_message(self, changes_summary):
         return self.chatgpt(changes_summary)
 
     def commit_changes(self, repo, commit_message):
-        repo.git.add(update=True)
+        # repo.git.add(update=True)
         repo.index.commit(commit_message)
 
     def get_user_approval(self, commit_msg):
