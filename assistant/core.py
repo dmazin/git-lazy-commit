@@ -4,7 +4,7 @@ import argparse
 from .chatbot import ChatBot
 
 
-class GitCommitAssistant:
+class Assistant:
     def __init__(self, model="gpt-3.5-turbo"):
         self.chatgpt = ChatBot(system="You are an assistant whose job is to generate commit messages given a list of git changes. In your responses, please just send back the commit message without any additional text. In your commit messages, try to be descriptive, i.e. don't just say 'refactored code.'", model=model)
 
@@ -37,7 +37,7 @@ def main(args=None):
     if args is None:
         args = parse_arguments()
 
-    assistant = GitCommitAssistant(args.model)
+    assistant = Assistant(args.model)
 
     repo = git.Repo(os.getcwd())
     uncommitted_changes = assistant.get_uncommitted_changes(repo)
@@ -50,6 +50,7 @@ def main(args=None):
         print("Changes committed.")
     else:
         print("Commit cancelled.")
+
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Generate commit messages for git repositories")

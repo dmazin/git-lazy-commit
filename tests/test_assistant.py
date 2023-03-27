@@ -1,12 +1,12 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from chatgpt_commit_assistant.commit_assistant import GitCommitAssistant
+from .context import assistant
 
 
 class TestGitCommitAssistant(unittest.TestCase):
     def setUp(self):
-        self.assistant = GitCommitAssistant()
+        self.assistant = assistant.Assistant()
 
     def test_get_uncommitted_changes(self):
         repo_mock = MagicMock()
