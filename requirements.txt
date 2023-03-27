@@ -1,2 +1,6 @@
 openai==0.27.2
 GitPython==3.1.31
+# development only
+black
+wheel
+twine
