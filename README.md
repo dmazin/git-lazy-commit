@@ -9,6 +9,7 @@ Please beware that this tool is great at describing what you did, but not why yo
 ## Installation
 
 You can install the ChatGPT Commit Assistant using pip: `pip install git-lazy-commit`
+
 You can upgrade it using `pip install --upgrade git-lazy-commit`.
 
 ## Usage
@@ -28,7 +29,7 @@ Do you approve this commit message? (yes/no):
 
 You can then respond with "yes" or "no". If you respond with "no", the script will generate a new commit message and ask for approval again. If you want to exit the script, you can press Ctrl+C.
 
-You can pass the model you want to use using `-m/--model`, e.g. `-m gpt-4`. The default is `gpt-3-turbo`. Note that gpt-4 is quite a bit slower and more expensive.
+You can pass the model you want to use using `-m/--model`, e.g. `-m gpt-4`. The default is `gpt-3-turbo`. Note that gpt-4 is quite a bit slower and more expensive. `gpt-3-turbo`, on the other hand, is extremely cheap (it's costing me less than 10 cents a day to use this).
 
 You can also pass `--verbose` to see some extra info. For now it prints the token usage.
 
