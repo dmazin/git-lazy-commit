@@ -7,3 +7,4 @@ setup(
     entry_points={"console_scripts": ["git-lazy-commit = assistant:main"]},
     install_requires=["openai", "GitPython"],
 )
+# foo
