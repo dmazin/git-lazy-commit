@@ -51,6 +51,11 @@ def main(args=None):
     repo = git.Repo(os.getcwd())
     uncommitted_changes = assistant.get_uncommitted_changes()
     changes_summary = "\n".join(uncommitted_changes)
+
+    if uncommitted_changes == ['']:
+        print("There are no uncommitted changes.")
+        return
+
     generated_commit_message = assistant.generate_commit_message(changes_summary)
 
     while not assistant.get_user_approval(generated_commit_message):
