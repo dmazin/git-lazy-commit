@@ -32,7 +32,6 @@ class ChatBot:
             default_key_path: str = os.path.join(
                 os.path.expanduser("~"), ".openai-api-key"
             )
-            print(default_key_path)
             if os.path.exists(default_key_path):
                 with open(default_key_path) as f:
                     openai.api_key = f.read().strip()
