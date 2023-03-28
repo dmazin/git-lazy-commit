@@ -111,25 +111,25 @@ index bea132e..7524ed4 100755
 
 **git-lazy-commit**: Refactored uncommitted changes retrieval to use subprocess instead of git module
 
-Here, I wanted update the interactivity of git-lazy-commit to allow a user to enter "y" instead of "yes" (etc). I also bumped the version.
+Here, I wanted update the interactivity of git-lazy-commit to allow a user to enter "y" instead of "yes" (etc).
 
 ```diff
-diff --git a/assistant/core.py b/assistant/core.py
-index 2c59fd1..d1c2fee 100755
+diff --git a/d1c2fee b/2c59fd1
+index d1c2fee..2c59fd1 100644
 --- a/assistant/core.py
 +++ b/assistant/core.py
 @@ -39,11 +39,11 @@ class Assistant:
              input("Do you approve this commit message? ((y)es/(n)o/(e)ditor): ").strip().lower()
          )
 
--        if user_input in ["yes", "y"]:
-+        if user_input == "yes":
+-        if user_input == "yes":
++        if user_input in ["yes", "y"]:
              return True, commit_msg
--        elif user_input in ["no", "n"]:
-+        elif user_input == "no":
+-        elif user_input == "no":
++        elif user_input in ["no", "n"]:
              return False, commit_msg
--        elif user_input in ["editor", "e"]:
-+        elif user_input == "e":
+-        elif user_input == "e":
++        elif user_input in ["editor", "e"]:
              return self.edit_commit_message(commit_msg)
          else:
              print("Invalid input. Please enter 'yes (or y)', 'no (or n)', or 'editor (or e)'.")
