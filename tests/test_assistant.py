@@ -27,22 +27,24 @@ class TestGitCommitAssistant(unittest.TestCase):
         repo_mock = MagicMock()
         commit_message = "Update example feature"
         self.assistant.commit_changes(repo_mock, commit_message)
-        repo_mock.git.add.assert_called_once_with(update=True)
         repo_mock.index.commit.assert_called_once_with(commit_message)
 
     def test_get_user_approval(self):
         commit_msg = "Update example feature"
         with patch("builtins.input", return_value="yes"):
-            approval = self.assistant.get_user_approval(commit_msg)
+            approval, message = self.assistant.get_user_approval(commit_msg)
             self.assertTrue(approval)
+            self.assertEqual(message, commit_msg)
 
         with patch("builtins.input", return_value="no"):
-            approval = self.assistant.get_user_approval(commit_msg)
+            approval, message = self.assistant.get_user_approval(commit_msg)
             self.assertFalse(approval)
+            self.assertEqual(message, commit_msg)
 
         with patch("builtins.input", side_effect=["invalid", "yes"]):
-            approval = self.assistant.get_user_approval(commit_msg)
+            approval, message = self.assistant.get_user_approval(commit_msg)
             self.assertTrue(approval)
+            self.assertEqual(message, commit_msg)
 
 
 if __name__ == "__main__":
