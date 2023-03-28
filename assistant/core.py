@@ -58,7 +58,6 @@ class Assistant:
         return self.get_user_approval(edited_commit_msg)
 
 
-
 def main(args=None):
     if args is None:
         args = parse_arguments()
@@ -76,15 +75,18 @@ def main(args=None):
     generated_commit_message = assistant.generate_commit_message(changes_summary)
 
     while True:
-        user_approved, commit_message = assistant.get_user_approval(generated_commit_message)
+        user_approved, commit_message = assistant.get_user_approval(
+            generated_commit_message
+        )
         if user_approved:
             break
         else:
-            generated_commit_message = assistant.generate_commit_message(changes_summary)
+            generated_commit_message = assistant.generate_commit_message(
+                changes_summary
+            )
 
     assistant.commit_changes(repo, commit_message)
     return "Changes committed."
-
 
 
 def parse_arguments():
@@ -95,7 +97,7 @@ def parse_arguments():
         "-m", "--model", default="gpt-3.5-turbo", help="OpenAI API model to use"
     )
     parser.add_argument(
-        "--verbose", action='store_true', help="Print extra information"
+        "--verbose", action="store_true", help="Print extra information"
     )
     args = parser.parse_args()
     return args
