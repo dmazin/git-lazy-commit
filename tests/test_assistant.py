@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, patch, mock_open
 
 from .context import assistant
 
@@ -45,6 +45,29 @@ class TestGitCommitAssistant(unittest.TestCase):
             approval, message = self.assistant.get_user_approval(commit_msg)
             self.assertTrue(approval)
             self.assertEqual(message, commit_msg)
+
+        with patch.object(
+            self.assistant,
+            "edit_commit_message",
+            return_value=(True, "Edited commit message"),
+        ) as edit_mock:
+            with patch("builtins.input", return_value="e"):
+                approval, message = self.assistant.get_user_approval(
+                    "Update example feature"
+                )
+                edit_mock.assert_called_once()
+                self.assertTrue(approval)
+                self.assertEqual(message, "Edited commit message")
+
+    def test_generate_alternative_commit_message(self):
+        with patch.object(
+            self.assistant.chatgpt, "execute", return_value="Another commit message"
+        ) as chatgpt_mock:
+            alternative_commit_message = (
+                self.assistant.generate_alternative_commit_message()
+            )
+            chatgpt_mock.assert_called_once()
+            self.assertEqual(alternative_commit_message, "Another commit message")
 
 
 if __name__ == "__main__":
