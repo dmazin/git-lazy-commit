@@ -39,11 +39,11 @@ class Assistant:
             input("Do you approve this commit message? ((y)es/(n)o/(e)ditor): ").strip().lower()
         )
 
-        if user_input == "yes":
+        if user_input in ["yes", "y"]:
             return True, commit_msg
-        elif user_input == "no":
+        elif user_input in ["no", "n"]:
             return False, commit_msg
-        elif user_input == "e":
+        elif user_input in ["editor", "e"]:
             return self.edit_commit_message(commit_msg)
         else:
             print("Invalid input. Please enter 'yes (or y)', 'no (or n)', or 'editor (or e)'.")
