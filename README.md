@@ -4,6 +4,8 @@ git-lazy-commit generates commit messages for staged changes in a git repository
 
 This tool is great at describing what you did, but not why you did it. I'd advise you to use it as a starting point, but then add the _why_. Use AI to augment yourself, not replace yourself.
 
+For more backstory and discussion, please see [my blog post about this](https://www.cyberdemon.org/2023/03/27/git-lazy-commit.html).
+
 ## Installation
 
 You can install the ChatGPT Commit Assistant using pip: `pip install git-lazy-commit`
