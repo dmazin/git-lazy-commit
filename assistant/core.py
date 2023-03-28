@@ -21,7 +21,9 @@ class Assistant:
         return uncommitted_changes
 
     def generate_commit_message(self, changes_summary):
-        return self.chatgpt(changes_summary)
+        # Trim the changes summary because the most common model, gpt-3.5-turbo,
+        # has a 4096 character limit
+        return self.chatgpt(changes_summary[:4096])
 
     def commit_changes(self, repo, commit_message):
         repo.git.add(update=True)
