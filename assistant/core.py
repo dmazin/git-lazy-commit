@@ -26,7 +26,6 @@ class Assistant:
         return self.chatgpt(changes_summary[:4096])
 
     def commit_changes(self, repo, commit_message):
-        repo.git.add(update=True)
         repo.index.commit(commit_message)
 
     def get_user_approval(self, commit_msg):
