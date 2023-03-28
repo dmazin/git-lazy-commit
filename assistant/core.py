@@ -31,16 +31,32 @@ class Assistant:
     def get_user_approval(self, commit_msg):
         print(f"Generated commit message: {commit_msg}")
         user_input = (
-            input("Do you approve this commit message? (yes/no): ").strip().lower()
+            input("Do you approve this commit message? (yes/no/e): ").strip().lower()
         )
 
         if user_input == "yes":
-            return True
+            return True, commit_msg
         elif user_input == "no":
-            return False
+            return False, commit_msg
+        elif user_input == "e":
+            return self.edit_commit_message(commit_msg)
         else:
-            print("Invalid input. Please enter 'yes' or 'no'.")
+            print("Invalid input. Please enter 'yes', 'no', or 'e'.")
             return self.get_user_approval(commit_msg)
+
+    def edit_commit_message(self, commit_msg):
+        with open("temp_commit_msg.txt", "w") as f:
+            f.write(commit_msg)
+
+        editor = os.environ.get("EDITOR", "vim")
+        subprocess.run([editor, "temp_commit_msg.txt"])
+
+        with open("temp_commit_msg.txt", "r") as f:
+            edited_commit_msg = f.read().strip()
+
+        os.remove("temp_commit_msg.txt")
+        return self.get_user_approval(edited_commit_msg)
+
 
 
 def main(args=None):
@@ -59,11 +75,16 @@ def main(args=None):
 
     generated_commit_message = assistant.generate_commit_message(changes_summary)
 
-    while not assistant.get_user_approval(generated_commit_message):
-        generated_commit_message = assistant.generate_commit_message(changes_summary)
+    while True:
+        user_approved, commit_message = assistant.get_user_approval(generated_commit_message)
+        if user_approved:
+            break
+        else:
+            generated_commit_message = assistant.generate_commit_message(changes_summary)
 
-    assistant.commit_changes(repo, generated_commit_message)
+    assistant.commit_changes(repo, commit_message)
     return "Changes committed."
+
 
 
 def parse_arguments():
