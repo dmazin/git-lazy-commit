@@ -36,7 +36,7 @@ class Assistant:
     def get_user_approval(self, commit_msg):
         print(f"Generated commit message: {commit_msg}")
         user_input = (
-            input("Do you approve this commit message? (yes/no/e): ").strip().lower()
+            input("Do you approve this commit message? ((y)es/(n)o/(e)ditor): ").strip().lower()
         )
 
         if user_input == "yes":
@@ -46,7 +46,7 @@ class Assistant:
         elif user_input == "e":
             return self.edit_commit_message(commit_msg)
         else:
-            print("Invalid input. Please enter 'yes', 'no', or 'e'.")
+            print("Invalid input. Please enter 'yes (or y)', 'no (or n)', or 'editor (or e)'.")
             return self.get_user_approval(commit_msg)
 
     def edit_commit_message(self, commit_msg):
