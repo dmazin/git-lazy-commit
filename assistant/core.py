@@ -74,7 +74,7 @@ def main(args=None):
     changes_summary = "\n".join(uncommitted_changes)
 
     if uncommitted_changes == [""]:
-        print("There are no uncommitted changes.")
+        print("There are no staged changes.")
         return
 
     generated_commit_message = assistant.generate_commit_message(changes_summary)
