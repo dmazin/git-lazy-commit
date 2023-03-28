@@ -6,11 +6,12 @@ from .chatbot import ChatBot
 
 
 class Assistant:
-    def __init__(self, model="gpt-3.5-turbo", is_verbose=False):
+    def __init__(self, model="gpt-3.5-turbo", is_verbose=False, api_key_path=None):
         self.chatgpt = ChatBot(
             system="Please generate a commit message given the output of `git diff`. Please respond with a commit message without any additional text.",
             model=model,
             is_verbose=is_verbose,
+            api_key_path=api_key_path,
         )
 
     def get_uncommitted_changes(self):
@@ -36,7 +37,9 @@ class Assistant:
     def get_user_approval(self, commit_msg):
         print(f"Generated commit message: {commit_msg}")
         user_input = (
-            input("Do you approve this commit message? ((y)es/(n)o/(e)ditor): ").strip().lower()
+            input("Do you approve this commit message? ((y)es/(n)o/(e)ditor): ")
+            .strip()
+            .lower()
         )
 
         if user_input in ["yes", "y"]:
@@ -46,7 +49,9 @@ class Assistant:
         elif user_input in ["editor", "e"]:
             return self.edit_commit_message(commit_msg)
         else:
-            print("Invalid input. Please enter 'yes (or y)', 'no (or n)', or 'editor (or e)'.")
+            print(
+                "Invalid input. Please enter 'yes (or y)', 'no (or n)', or 'editor (or e)'."
+            )
             return self.get_user_approval(commit_msg)
 
     def edit_commit_message(self, commit_msg):
@@ -67,7 +72,7 @@ def main(args=None):
     if args is None:
         args = parse_arguments()
 
-    assistant = Assistant(args.model, args.verbose)
+    assistant = Assistant(args.model, args.verbose, args.api_key_path)
 
     repo = git.Repo(os.getcwd())
     uncommitted_changes = assistant.get_uncommitted_changes()
@@ -98,6 +103,10 @@ def parse_arguments():
     )
     parser.add_argument(
         "-m", "--model", default="gpt-3.5-turbo", help="OpenAI API model to use"
+    )
+    parser.add_argument(
+        "--api-key-path",
+        help="Tell me where you stored your OpenAI API key. If this isn't provided, I'll look for the OPENAPI_API_KEY env var, and failing that, ~/.openai_api_key.",
     )
     parser.add_argument(
         "--verbose", action="store_true", help="Print extra information"
