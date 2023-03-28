@@ -26,7 +26,7 @@ class Assistant:
         return self.chatgpt(changes_summary[:4096])
 
     def generate_alternative_commit_message(self):
-        return self.chatgpt("Please come up with another commit message.")
+        return self.chatgpt("Please come up with another commit message for the diff I sent earlier.")
 
     def commit_changes(self, repo, commit_message):
         repo.index.commit(commit_message)
