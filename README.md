@@ -69,7 +69,7 @@ index 7926b0e..34b54e0 100644
 
 Note that it prepended a silly little "feat:". It's not perfect! For this reason, git-lazy-commit lets you edit the proposed commit message using the $EDITOR of your choice.
 
-Another example, Here's a diff from the git-lazy-commit repo, where I gave up trying to generate the diff with GitPython (I couldn't figure out how to make its output match `git diff --staged`) and just used subprocess to run `git diff --staged` directly.
+Another example. Here's a diff from the git-lazy-commit repo, where I gave up trying to generate the diff with GitPython (I couldn't figure out how to make its output match `git diff --staged`) and just used subprocess to run `git diff --staged` directly.
 
 ```diff
 diff --git a/assistant/core.py b/assistant/core.py
@@ -141,8 +141,8 @@ index fccccad..50e03a7 100644
 
  setup(
      name="git-lazy-commit",
--    version="0.10",
-+    version="0.9",
+-    version="0.9",
++    version="0.10",
      packages=find_packages(),
      entry_points={"console_scripts": ["git-lazy-commit = assistant:main"]},
      install_requires=["openai", "GitPython"],
