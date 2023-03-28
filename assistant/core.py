@@ -25,6 +25,9 @@ class Assistant:
         # has a 4096 character limit
         return self.chatgpt(changes_summary[:4096])
 
+    def generate_alternative_commit_message(self):
+        return self.chatgpt("Please come up with another commit message.")
+
     def commit_changes(self, repo, commit_message):
         repo.index.commit(commit_message)
 
@@ -81,9 +84,7 @@ def main(args=None):
         if user_approved:
             break
         else:
-            generated_commit_message = assistant.generate_commit_message(
-                changes_summary
-            )
+            generated_commit_message = assistant.generate_alternative_commit_message()
 
     assistant.commit_changes(repo, commit_message)
     return "Changes committed."
