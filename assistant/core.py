@@ -75,6 +75,10 @@ def main(args=None):
     assistant = Assistant(args.model, args.verbose, args.api_key_path)
 
     repo = git.Repo(os.getcwd())
+
+    if args.add:
+        repo.git.add(all=True)
+
     uncommitted_changes = assistant.get_uncommitted_changes()
     changes_summary = "\n".join(uncommitted_changes)
 
@@ -110,6 +114,9 @@ def parse_arguments():
     )
     parser.add_argument(
         "--verbose", action="store_true", help="Print extra information"
+    )
+    parser.add_argument(
+        "--add", action="store_true", help="Run `git add .` before generating the commit message"
     )
     args = parser.parse_args()
     return args
